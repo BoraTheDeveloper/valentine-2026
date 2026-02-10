@@ -18,15 +18,15 @@
   </div>
   <canvas id="game-canvas"></canvas>
 
-  <!-- Mobile touch controls -->
+  <!-- Mobile touch controls (console-style) -->
   <div id="touch-controls">
-    <div class="touch-left">
-      <button class="touch-btn" data-action="moveLeft">◀</button>
-      <button class="touch-btn" data-action="moveRight">▶</button>
+    <div class="touch-left dpad-group">
+      <button class="touch-btn dpad-btn dpad-left" data-action="moveLeft">◀</button>
+      <button class="touch-btn dpad-btn dpad-right" data-action="moveRight">▶</button>
     </div>
-    <div class="touch-right">
-      <button class="touch-btn touch-btn-round" data-action="shoot">💘</button>
-      <button class="touch-btn touch-btn-round" data-action="jump">▲</button>
+    <div class="touch-right action-btn-group">
+      <button class="touch-btn action-btn action-btn-shoot" data-action="shoot">💘</button>
+      <button class="touch-btn action-btn action-btn-jump" data-action="jump">▲</button>
     </div>
   </div>
   <div id="message-btn-container" style="display:none;">
