@@ -22,9 +22,9 @@ export class Renderer {
    * The internal resolution is based on GAME_WIDTH x GAME_HEIGHT.
    */
   resize() {
-    const parent = this.canvas.parentElement || document.body;
-    const containerWidth = parent.clientWidth || window.innerWidth;
-    const containerHeight = parent.clientHeight || window.innerHeight;
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    const containerWidth = isFullscreen ? window.screen.width : (this.canvas.parentElement?.clientWidth || window.innerWidth);
+    const containerHeight = isFullscreen ? window.screen.height : (this.canvas.parentElement?.clientHeight || window.innerHeight);
 
     const targetAspect = GAME_WIDTH / GAME_HEIGHT;
     const containerAspect = containerWidth / containerHeight;
@@ -32,20 +32,21 @@ export class Renderer {
     let drawWidth, drawHeight;
 
     if (containerAspect >= targetAspect) {
-      // Container is wider than needed: fit to height
       drawHeight = containerHeight;
       drawWidth = drawHeight * targetAspect;
     } else {
-      // Container is taller than needed: fit to width
       drawWidth = containerWidth;
       drawHeight = drawWidth / targetAspect;
     }
 
-    // Set the CSS display size
     this.canvas.style.width = `${drawWidth}px`;
     this.canvas.style.height = `${drawHeight}px`;
 
-    // Set the internal resolution
+    // Center the canvas
+    this.canvas.style.position = 'absolute';
+    this.canvas.style.left = `${(containerWidth - drawWidth) / 2}px`;
+    this.canvas.style.top = `${(containerHeight - drawHeight) / 2}px`;
+
     this.canvas.width = GAME_WIDTH;
     this.canvas.height = GAME_HEIGHT;
 

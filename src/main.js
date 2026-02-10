@@ -1,7 +1,11 @@
 import { Game } from './engine/Game.js';
+import { FullscreenPrompt } from './ui/OrientationPrompt.js';
 
 const canvas = document.getElementById('game-canvas');
 const game = new Game(canvas);
+
+// Initialize fullscreen prompt for mobile
+const fullscreenPrompt = new FullscreenPrompt();
 
 // Wire the "Read the Message" button
 const msgBtn = document.getElementById('read-message-btn');

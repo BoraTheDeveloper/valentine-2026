@@ -22,8 +22,8 @@ html, body {
   image-rendering: pixelated;
 }
 
-/* Orientation prompt - shown only in portrait */
-#orientation-prompt {
+/* Fullscreen prompt - shown on mobile when not in fullscreen */
+#fullscreen-prompt {
   display: none;
   position: fixed;
   top: 0;
@@ -34,41 +34,47 @@ html, body {
   z-index: 1000;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
-.orientation-content {
+#fullscreen-prompt.visible {
+  display: flex;
+}
+
+.fullscreen-content {
   text-align: center;
   color: #fff;
   font-family: 'Georgia', serif;
 }
 
-.rotate-icon {
+.fullscreen-icon {
   font-size: 4rem;
   margin-bottom: 1rem;
-  animation: rotate-hint 2s ease-in-out infinite;
+  animation: pulse-icon 2s ease-in-out infinite;
 }
 
-.orientation-content p {
-  font-size: 1.4rem;
-  max-width: 280px;
+.fullscreen-content p {
+  font-size: 1.6rem;
+  font-weight: bold;
+  max-width: 300px;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes rotate-hint {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(90deg); }
-  75% { transform: rotate(90deg); }
+.fullscreen-hint {
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
-@media (orientation: portrait) {
-  #orientation-prompt {
-    display: flex;
-  }
-  #game-canvas {
-    display: none;
-  }
-  #message-btn-container {
-    display: none !important;
-  }
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* When in fullscreen, ensure canvas fills viewport */
+:fullscreen #game-canvas,
+:-webkit-full-screen #game-canvas {
+  width: 100vw !important;
+  height: 100vh !important;
 }
 
 /* Read the Message button */
@@ -237,11 +243,7 @@ html, body {
   100% { transform: scale(1) rotate(-5deg); opacity: 1; }
 }
 
-@media (orientation: portrait) {
-  #valentine-overlay {
-    display: none !important;
-  }
-}
+
 
 /* Play Again button */
 #play-again-container {
@@ -273,8 +275,4 @@ html, body {
   transform: scale(0.95);
 }
 
-@media (orientation: portrait) {
-  #play-again-container {
-    display: none !important;
-  }
-}
+
