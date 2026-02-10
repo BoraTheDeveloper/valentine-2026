@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Valentine Quest</title>
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+  <div id="orientation-prompt">
+    <div class="orientation-content">
+      <div class="rotate-icon">📱↻</div>
+      <p>Please rotate your device to landscape</p>
+    </div>
+  </div>
+  <canvas id="game-canvas"></canvas>
+  <div id="message-btn-container" style="display:none;">
+    <button id="read-message-btn">Read the Message 💌</button>
+  </div>
+  <div id="play-again-container" style="display:none;">
+    <button id="play-again-btn">Play Again</button>
+  </div>
+  <div id="valentine-overlay" class="hidden">
+    <div class="valentine-panel">
+      <div class="valentine-heart-top">&#10084;</div>
+      <p class="valentine-text">Happy valentine sweetie, i made this game just for you, unique to you, just like my love for you. i hope you have fun playing this game because it was made with lovee duhhh. althought it's quite near to valentine day, i hope i didn't come too late to ask you this question.</p>
+      <p class="valentine-question">May I be your valentine?</p>
+      <div class="valentine-buttons">
+        <button class="valentine-btn" data-answer="yes">Yes</button>
+        <button class="valentine-btn" data-answer="yes">yes</button>
+      </div>
+      <div class="valentine-stamp hidden">
+        <span>Yes</span>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
