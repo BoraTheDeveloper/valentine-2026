@@ -40,6 +40,7 @@ export class Input {
 
     this._bindKeyboard();
     this._bindTouch();
+    this._bindButtons();
   }
 
   /**
@@ -65,11 +66,12 @@ export class Input {
    */
   _refreshState() {
     const touchState = this._getTouchState();
-    this.state.moveRight = this._keys.moveRight || touchState.moveRight;
-    this.state.moveLeft = this._keys.moveLeft || touchState.moveLeft;
-    this.state.jump = this._keys.jump || touchState.jump;
-    this.state.shoot = this._keys.shoot || touchState.shoot;
-    this.state.action = this._keys.action || touchState.action;
+    const btn = this._buttonState || {};
+    this.state.moveRight = this._keys.moveRight || touchState.moveRight || btn.moveRight;
+    this.state.moveLeft = this._keys.moveLeft || touchState.moveLeft || btn.moveLeft;
+    this.state.jump = this._keys.jump || touchState.jump || btn.jump;
+    this.state.shoot = this._keys.shoot || touchState.shoot || btn.shoot;
+    this.state.action = this._keys.action || touchState.action || btn.action;
   }
 
   /**
@@ -117,6 +119,70 @@ export class Input {
     if (relX >= 0.70 && relY < 0.50) return 'action';
 
     return null;
+  }
+
+  // --- On-screen button bindings ---
+
+  _bindButtons() {
+    this._buttonState = {
+      moveRight: false,
+      moveLeft: false,
+      jump: false,
+      shoot: false,
+      action: false,
+    };
+
+    const buttons = document.querySelectorAll('.touch-btn[data-action]');
+    const opts = { passive: false };
+
+    for (const btn of buttons) {
+      const action = btn.dataset.action;
+      if (!action) continue;
+
+      btn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this._buttonState[action] = true;
+        btn.classList.add('active');
+        this._refreshState();
+      }, opts);
+
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this._buttonState[action] = false;
+        btn.classList.remove('active');
+        this._refreshState();
+      }, opts);
+
+      btn.addEventListener('touchcancel', (e) => {
+        e.preventDefault();
+        this._buttonState[action] = false;
+        btn.classList.remove('active');
+        this._refreshState();
+      }, opts);
+
+      // Mouse fallback for testing on desktop
+      btn.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        this._buttonState[action] = true;
+        btn.classList.add('active');
+        this._refreshState();
+      });
+
+      btn.addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        this._buttonState[action] = false;
+        btn.classList.remove('active');
+        this._refreshState();
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        this._buttonState[action] = false;
+        btn.classList.remove('active');
+        this._refreshState();
+      });
+    }
   }
 
   // --- Touch bindings ---

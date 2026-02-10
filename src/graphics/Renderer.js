@@ -22,9 +22,8 @@ export class Renderer {
    * The internal resolution is based on GAME_WIDTH x GAME_HEIGHT.
    */
   resize() {
-    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    const containerWidth = isFullscreen ? window.screen.width : (this.canvas.parentElement?.clientWidth || window.innerWidth);
-    const containerHeight = isFullscreen ? window.screen.height : (this.canvas.parentElement?.clientHeight || window.innerHeight);
+    const containerWidth = window.innerWidth;
+    const containerHeight = window.innerHeight;
 
     const targetAspect = GAME_WIDTH / GAME_HEIGHT;
     const containerAspect = containerWidth / containerHeight;
@@ -41,8 +40,6 @@ export class Renderer {
 
     this.canvas.style.width = `${drawWidth}px`;
     this.canvas.style.height = `${drawHeight}px`;
-
-    // Center the canvas
     this.canvas.style.position = 'absolute';
     this.canvas.style.left = `${(containerWidth - drawWidth) / 2}px`;
     this.canvas.style.top = `${(containerHeight - drawHeight) / 2}px`;

@@ -77,6 +77,69 @@ html, body {
   height: 100vh !important;
 }
 
+/* Mobile touch control buttons */
+#touch-controls {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none;
+  padding: 12px 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.touch-left,
+.touch-right {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.touch-right {
+  flex-direction: row-reverse;
+}
+
+.touch-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.touch-btn:active,
+.touch-btn.active {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.touch-btn-round {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #touch-controls {
+    display: flex;
+  }
+}
+
 /* Read the Message button */
 #message-btn-container {
   position: fixed;
